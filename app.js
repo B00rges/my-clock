@@ -1,21 +1,21 @@
-const formatClock = value => String(value).length -1 ? value : `0${value}`
+const horas = document.getElementById('horas');
+const minutos = document.getElementById('minutos');
+const segundos = document.getElementById('segundos');
 
-const clockContainer = document.querySelector('.clock-container')
+const relogio = setInterval(function time() {
+    let dateToday = new Date();
+    let hr = dateToday.getHours();
+    let min = dateToday.getMinutes();
+    let s = dateToday.getSeconds();
 
-const myClock = (hours, minutes, seconds) => `
-  <span>${hours}</span> :
-  <span>${minutes}</span> :
-  <span>${seconds}</span>
-`
+    if (hr < 10) hr = '0' + hr;
 
-const updateClock = () => {
-  const present = new Date()
-  const hours = formatClock(present.getHours())
-  const minutes = formatClock(present.getMinutes())
-  const seconds = formatClock(present.getSeconds())
+    if (min < 10) min = '0' + min;
 
+    if (s < 10) s = '0' + s;
 
-  clockContainer.innerHTML = myClock(hours, minutes, seconds)
-}
+    horas.textContent = hr;
+    minutos.textContent = min;
+    segundos.textContent = s;
 
-setInterval(updateClock, 1000)
+})
