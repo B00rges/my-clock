@@ -2,20 +2,22 @@ const horas = document.getElementById('horas');
 const minutos = document.getElementById('minutos');
 const segundos = document.getElementById('segundos');
 
-const relogio = setInterval(function time() {
+const formattedCLock = hour => hour < 10 ? `0${hour}` : hour
+
+const getTime = () => {
     let dateToday = new Date();
-    let hr = dateToday.getHours();
-    let min = dateToday.getMinutes();
-    let s = dateToday.getSeconds();
+    let hours = formattedCLock(dateToday.getHours())
+    let minutes = formattedCLock(dateToday.getMinutes())
+    let seconds = formattedCLock(dateToday.getSeconds())
 
-    if (hr < 10) hr = '0' + hr;
+    return [hours, minutes, seconds]
+}
 
-    if (min < 10) min = '0' + min;
+const updateClock = setInterval(function time() {
+    const [hours, minutes, seconds] = getTime()
+    
+    horas.innerHTML = hours
+    minutos.innerHTML = minutes
+    segundos.innerHTML = seconds
 
-    if (s < 10) s = '0' + s;
-
-    horas.textContent = hr;
-    minutos.textContent = min;
-    segundos.textContent = s;
-
-})
+}, 1000)
